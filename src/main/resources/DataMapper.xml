@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.dj.mybatis.domain.DataMapper">
+    <resultMap id="hw" type="husband">
+        <id property="id" column="id"></id>
+        <result column="name" property="name"></result>
+        <result property="w_id" column="w_id"></result>
+        <association property="wife" javaType="com.dj.mybatis.domain.Wife">
+            <id property="id" column="id"></id>
+            <result column="name" property="name"></result>
+        </association>
+    </resultMap>
+    <select id="findByNames" parameterType="husband" resultMap="hw">
+        select h.*,w.id,w.name from husband h ,wife w
+        where h.name=#{name} and w.name=#{wife.name}
+    </select>
+</mapper>
